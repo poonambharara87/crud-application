@@ -43,9 +43,10 @@
                         <input type="file" name="files[]" multiple class="form-control" aria-describedby="nameHelp">
                     </div>
                     <div class="mb-3">
-                        <select class="form-select" name="categories" aria-label="Default select example">
+                        <select class="form-select" name="category" aria-label="Default select example">
                             <option >Open this select menu</option>
                             @if(isset($categories) && $categories->count() > 0)
+                                {{$categories}}
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
@@ -54,7 +55,7 @@
                     </div>
                          
                     <div class="mb-3">
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" name="status" aria-label="Default select example">
                             <option >Status</option>
                             <option value="1">Active</option>
                             <option value="2">Inactive</option>

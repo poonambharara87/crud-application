@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use App\Models\Category;
+use Illuminate\Support\Carbon;
 class ProductController extends Controller
 {
     /**
@@ -13,7 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index');
+        $categories = Category::all();
+       
+        return view('admin.products.index',['categories' => $categories]);
     }
 
     /**
@@ -29,16 +32,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-         
-      Product::create([
         
-      ]);
-      foreach($request->file('files') as $file){
-        $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-           
-        $file->move(public_path('uploads'), $fileName);
+        foreach($request->file('files') as $file){
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            $file->move(public_path('uploads'), $fileName);
+            $files[] = ['name' => $fileName];
+        }
 
-      }
+        Product::create([
+            'name' => $request->username,
+            'images' =>  $files,
+            'category_id' => $request->category,
+            'status' => $request->status,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+      
     }
 
     /**
