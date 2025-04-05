@@ -71,7 +71,7 @@ class UserController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $product = Product::find($id);
+        $product = User::find($id);
         return response()->json($product);
     }
   
@@ -83,8 +83,8 @@ class UserController extends Controller
      */
     public function edit($id): JsonResponse
     {
-        $product = Product::find($id);
-        return response()->json($product);
+        $user = User::find($id);
+        return response()->json($user);
     }
       
     /**
@@ -95,8 +95,8 @@ class UserController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        Product::find($id)->delete();
+        User::find($id)->delete();
         
-        return response()->json(['success'=>'Product deleted successfully.']);
+        return response()->json(['success'=>'User deleted successfully.']);
     }
 }

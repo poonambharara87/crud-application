@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laravel 11 Ajax CRUD Tutorial Example - ItSolutionStuff.com</title>
+    <title>Laravel 11 Ajax CRUD </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
@@ -15,7 +15,7 @@
       
 <div class="container">
     <div class="card mt-5">
-        <h2 class="card-header"><i class="fa-regular fa-credit-card"></i> Laravel 11 Ajax CRUD Example - ItSolutionStuff.com</h2>
+        <h2 class="card-header"><i class="fa-regular fa-credit-card"></i> Laravel 11 Ajax CRUD</h2>
         <div class="card-body">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
                 <a class="btn btn-success btn-sm" href="javascript:void(0)" id="createNewProduct"> <i class="fa fa-plus"></i> Create New Product</a>
@@ -26,7 +26,7 @@
                     <tr>
                         <th width="60px">No</th>
                         <th>Name</th>
-                        <th>Details</th>
+                        <th>Email</th>
                         <th width="280px">Action</th>
                     </tr>
                 </thead>
@@ -61,9 +61,9 @@
                     </div>
        
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Details:</label>
+                        <label class="col-sm-2 control-label">Email:</label>
                         <div class="col-sm-12">
-                        <input type="email" name="email">
+                        <input type="email" class="form-control" placeholder="email" name="email" id="email">
                         </div>
                     </div>
         
@@ -117,7 +117,7 @@
         serverSide: true,
         ajax: "{{ route('users.index') }}",
         columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
@@ -158,7 +158,8 @@
     --------------------------------------------*/
     $('body').on('click', '.editProduct', function () {
       var product_id = $(this).data('id');
-      $.get("{{ route('products.index') }}" +'/' + product_id +'/edit', function (data) {
+      console.log('product_id', product_id);
+      $.get("{{ route('users.index') }}" +'/' + product_id +'/edit', function (data) {
           $('#modelHeading').html("<i class='fa-regular fa-pen-to-square'></i> Edit Product");
           $('#saveBtn').val("edit-user");
           $('#ajaxModel').modal('show');
