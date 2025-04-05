@@ -1,11 +1,11 @@
 @extends('components.app')
-@section('title', 'bootstrap')
+@section('title', 'Practice 1')
 @section('content')
     <div class="container">
         <div class="card">
             <div class="card-body">
             <div class="d-flex justify-content-end">
-                <button class="btn btn-success" data-toggle="modal" data-target="#ajaxModel" id="createNewStaff">+ Create Staff</button>
+                <button class="btn btn-success mb-2" data-toggle="modal" data-target="#ajaxModel" id="createNewStaff">+ Create Staff</button>
             </div>
 
             <table class="table table-bordered data-table">
@@ -38,7 +38,7 @@
                 <form id="userForm" name="userForm">
                     @csrf
                     <input type="hidden" name="product_id" id="user_id" >
-                <div class="form-group">
+                    <div class="form-group">
                         <label>Name</label>
                         <input type="text" name="name" class="form-control" id="userName" placeholder="Kushal">
                     </div>
@@ -48,10 +48,10 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="exampleFormControlSelect2">Example multiple select</label>
+                        <label for="exampleFormControlSelect2">Status</label>
                         <select multiple class="form-control" name="status" id="userStatus">
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
+                        <option class="form-control"  value="Active">Active</option>
+                        <option class="form-control"  value="Inactive">Inactive</option>
                         </select>
                     </div>
                     <div class="col-sm-offset-2 col-sm-10">

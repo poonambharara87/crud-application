@@ -46,11 +46,7 @@ class UserController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required',
-        // ]);
-          
+
         User::updateOrCreate([
                     'id' => $request->product_id
                 ],
