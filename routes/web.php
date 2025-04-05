@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ProductController;
-
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\ProjectController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -14,10 +16,12 @@ Route::post('/register', [AuthController::class, 'register_store'])->name('regis
 
 Route::get('/login',[AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'login_store'])->name('login-store');
-
-
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+Route::resource('projects', ProjectController::class);
 Route::group(['middleware' => 'web'], function () {
     Route::resource('products', ProductController::class);
+    Route::resource('users', UserController::class);
+
 });
 
 

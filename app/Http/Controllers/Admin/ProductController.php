@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductCategory;
 use Illuminate\Support\Carbon;
 class ProductController extends Controller
 {
@@ -15,8 +16,8 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::all();
-       
-        return view('admin.products.index',['categories' => $categories]);
+        $products = Product::with('category')->get();
+        return view('admin.products.index',['categories' => $categories, 'products' => $products]);
     }
 
     /**
@@ -32,23 +33,41 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
-        foreach($request->file('files') as $file){
-            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            
-            $file->move(public_path('uploads'), $fileName);
-            $files[] = ['name' => $fileName];
+        if(!$request->file('files')){
+            foreach($request->file('files') as $file){
+                $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                
+                $file->move(public_path('uploads'), $fileName);
+                $files[] = ['name' => $fileName];
+            }
         }
+       
+        Product::updateOrCreate([
+            'id' => $request->product_id
+        ],
+        [
+            'name' => $request->name, 
+            'detail' => $request->detail
+        ]); 
+        $product = Product::updateOrCreate(
+                    
 
-        Product::create([
-            'name' => $request->username,
-            'images' =>  $files,
-            'category_id' => $request->category,
-            'status' => $request->status,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-      
+                    ['id'  => $request->product_id],
+                    [
+                        'name' => $request->product_name,
+                        'images' =>  $files,
+                        'category_id' => $request->category,
+                        'status' => $request->status,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
+                    ]);
+
+                    ProductCategory::create([
+                        'category_id' => $product->category_id,
+                        'product_id' => $product->id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
+                    ]);
     }
 
     /**
@@ -64,7 +83,12 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.products.edit');
+        $data = Product::with('category')->where('id', $id)->first();
+        $category = Category::where('id',$data->category_id)->first();
+        $data->category_name = $category->name;
+        // $data = json_decode($product);
+        return response()->json($data);
+        // return view('admin.products.edit', ['product' => $product]);
     }
 
     /**
@@ -80,6 +104,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->back();
     }
 }
