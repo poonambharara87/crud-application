@@ -18,7 +18,7 @@
         <h2 class="card-header"><i class="fa-regular fa-credit-card"></i> Laravel 11 Ajax CRUD</h2>
         <div class="card-body">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                <a class="btn btn-success btn-sm" href="javascript:void(0)" id="createNewProduct"> <i class="fa fa-plus"></i> Create New Product</a>
+                <a class="btn btn-success btn-sm" href="javascript:void(0)" id="createNewUser"> <i class="fa fa-plus"></i> Create New Product</a>
             </div>
 
             <table class="table table-bordered data-table">
@@ -129,7 +129,7 @@
     Click to Button
     --------------------------------------------
     --------------------------------------------*/
-    $('#createNewProduct').click(function () {
+    $('#createNewUser').click(function () {
         $('#saveBtn').val("create-product");
         $('#product_id').val('');
         $('#productForm').trigger("reset");
@@ -144,7 +144,7 @@
     --------------------------------------------*/
     $('body').on('click', '.showProduct', function () {
       var product_id = $(this).data('id');
-      $.get("{{ route('products.index') }}" +'/' + product_id, function (data) {
+      $.get("{{ route('users.index') }}" +'/' + product_id, function (data) {
           $('#showModel').modal('show');
           $('.show-name').text(data.name);
           $('.show-email').text(data.email);
