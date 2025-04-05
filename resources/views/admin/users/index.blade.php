@@ -68,8 +68,8 @@
                     </div>
         
                     <div class="col-sm-offset-2 col-sm-10">
-                     <button type="submit" class="btn btn-success mt-2" id="saveBtn" value="create"><i class="fa fa-save"></i> Submit
-                     </button>
+                        <button type="submit" class="btn btn-success mt-2" id="saveBtn" value="create"><i class="fa fa-save"></i> Submit
+                        </button>
                     </div>
                 </form>
             </div>
@@ -143,8 +143,8 @@
     --------------------------------------------
     --------------------------------------------*/
     $('body').on('click', '.showProduct', function () {
-      var product_id = $(this).data('id');
-      $.get("{{ route('users.index') }}" +'/' + product_id, function (data) {
+      var user_id = $(this).data('id');
+      $.get("{{ route('users.index') }}" +'/' + user_id, function (data) {
           $('#showModel').modal('show');
           $('.show-name').text(data.name);
           $('.show-email').text(data.email);
@@ -156,10 +156,10 @@
     Click to Edit Button
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.editProduct', function () {
-      var product_id = $(this).data('id');
-      console.log('product_id', product_id);
-      $.get("{{ route('users.index') }}" +'/' + product_id +'/edit', function (data) {
+    $('body').on('click', '.editUser', function () {
+      var user_id = $(this).data('id');
+   
+      $.get("{{ route('users.index') }}" +'/' + user_id +'/edit', function (data) {
           $('#modelHeading').html("<i class='fa-regular fa-pen-to-square'></i> Edit Product");
           $('#saveBtn').val("edit-user");
           $('#ajaxModel').modal('show');
@@ -209,14 +209,14 @@
     Delete Product Code
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.deleteProduct', function () {
+    $('body').on('click', '.deleteUser', function () {
      
-        var product_id = $(this).data("id");
+        var user_id = $(this).data("id");
         confirm("Are You sure want to delete?");
         
         $.ajax({
             type: "DELETE",
-            url: "{{ route('users.store') }}"+'/'+product_id,
+            url: "{{ route('users.store') }}"+'/'+user_id,
             success: function (data) {
                 table.draw();
             },

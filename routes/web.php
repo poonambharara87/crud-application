@@ -17,7 +17,9 @@ Route::post('/register', [AuthController::class, 'register_store'])->name('regis
 Route::get('/login',[AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'login_store'])->name('login-store');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-
+Route::get('/bootstrap', function(){
+    return view('admin.projects.index');
+});
 Route::group(['middleware' => 'web'], function () {
     Route::resource('products', ProductController::class);
     Route::resource('users', UserController::class);
