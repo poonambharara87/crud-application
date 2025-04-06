@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
-
+use App\Http\Controllers\BrandController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,9 +20,12 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
 Route::get('/bootstrap', function(){
     return view('admin.projects.index');
 });
+
+
 Route::group(['middleware' => 'web'], function () {
     Route::resource('products', ProductController::class);
     Route::resource('users', UserController::class);
+    Route::resource('brands', BrandController::class);
 
 });
 

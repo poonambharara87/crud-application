@@ -35,7 +35,7 @@ class UserController extends Controller
                     ->make(true);
         }
           
-        return view('admin.users.index');
+        return view('admin.brands.index');
     }
          
     /**
