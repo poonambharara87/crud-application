@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,7 +27,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('products', ProductController::class);
     Route::resource('users', UserController::class);
     Route::resource('brands', BrandController::class);
-
+    Route::resource('posts', PostController::class);
 });
 
 

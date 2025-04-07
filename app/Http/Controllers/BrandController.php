@@ -21,7 +21,7 @@ class BrandController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                         $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="View" class="me-1 btn btn-info viewBrand" >View</a>';
-                        $btn = $btn .'<a href="javascript:void(0)"  data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class=" me-1 btn btn-primary editBrand" >Edit</a>';
+                        $btn = $btn .'<a href="javascript:void(0)"  data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="me-1 btn btn-primary editBrand" >Edit</a>';
                         $btn = $btn .'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger deleteBrand" >Delete</a>';
                         return $btn;
                     })
