@@ -14,7 +14,7 @@ class Product extends Model
         'images' => 'json'
     ];
 
-    public function category(): HasOne
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
