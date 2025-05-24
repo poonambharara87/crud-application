@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ProductCategory;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
@@ -16,8 +16,11 @@ class Product extends Model
 
     public function category(): HasOne
     {
-        return $this->hasOne(ProductCategory::class);
+        return $this->belongsTo(Category::class);
     }
 
-    
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

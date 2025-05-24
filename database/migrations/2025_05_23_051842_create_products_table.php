@@ -18,7 +18,6 @@ return new class extends Migration
             $table->json('images')->nullable();
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

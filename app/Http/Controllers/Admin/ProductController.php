@@ -33,6 +33,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $files = [];
         if(!$request->file('files')){
             foreach($request->file('files') as $file){
                 $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -41,33 +42,19 @@ class ProductController extends Controller
                 $files[] = ['name' => $fileName];
             }
         }
-       
-        Product::updateOrCreate([
-            'id' => $request->product_id
-        ],
-        [
-            'name' => $request->name, 
-            'detail' => $request->detail
-        ]); 
+    
         $product = Product::updateOrCreate(
-                    
-
                     ['id'  => $request->product_id],
                     [
-                        'name' => $request->product_name,
+                        'name' => $request->name,
                         'images' =>  $files,
-                        'category_id' => $request->category,
+                        'category_id' => $request->category_id,
                         'status' => $request->status,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now()
                     ]);
-
-                    ProductCategory::create([
-                        'category_id' => $product->category_id,
-                        'product_id' => $product->id,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
-                    ]);
+        return response()->json(['data'=> 'Product Added Successfully!']);
+                 
     }
 
     /**
@@ -108,4 +95,35 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->back();
     }
-}
+
+    public function getProductPost(){
+        $products = Product::with('posts')->get();
+        return view('admin.post.index', ['products' => $products]);
+    }
+
+    public function getProductCategory(Request $Request){
+        $parent_id = $Request->get('parent_id');
+        //Category who has same parenent_category_id and the product
+        $data = Category::with('parent')->where('parent_id', $parent_id)->get();
+        return response()->json($data);
+    }
+
+      public function getSubCategory(Request $Request){
+            $parent_id = $Request->get('parent_id');
+            //Category who has same parenent_category_id and the product
+            $data = Category::with('childern')->where('parent_id', $parent_id)->get();
+            return response()->json($data);
+        }
+    public function view_product(){
+        $parent_category = Category::with('parent')->get();
+        return view('admin.products.view_product', ['parent_category' => $parent_category]);
+    }
+    public function getProductCategoryById(Request $Request){
+        $category_id = $Request->get('category_id');
+
+        $data = Category::with('product')->where('id', $category_id)->get();
+        // dd($data);
+        return response()->json($data);    
+     }
+    }
+

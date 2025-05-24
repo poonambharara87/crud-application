@@ -14,14 +14,68 @@ class CategorySeederTable extends Seeder
      */
     public function run(): void
     {
-        $categories = ['Footwear', 'Jullery', 'Shirts', 'Pants'];
-        foreach($categories as $category){
-                Category::create([
-                    'name' => $category,
-                    'status' => 'Active',
-                    'created_at' => Carbon::now(), 
-                    'updated_at' =>Carbon::now(), 
-                ]);
-        }
+        $parent_category = ['Shirts', 'Pants'];
+        $categories =   [
+                    [
+                        'name' => 'Shirts',
+                        'status' => 'Active',
+                        'parent_id' => null,
+                        'created_at' => Carbon::now(), 
+                        'updated_at' =>Carbon::now(), 
+                    ],
+                    [
+                        'name' => 'Pants',
+                        'status' => 'Active',
+                        'parent_id' => null,
+                        'created_at' => Carbon::now(), 
+                        'updated_at' =>Carbon::now(), 
+                    ],
+                     [
+                        'name' => 'Formal Shirts',
+                        'status' => 'Active',
+                        'parent_id' => 1,
+                        'created_at' => Carbon::now(), 
+                        'updated_at' =>Carbon::now(), 
+                    ],
+                    [
+                        'name' => 'Trouser Pants',
+                        'status' => 'Active',
+                        'parent_id' => 2,
+                        'created_at' => Carbon::now(), 
+                        'updated_at' =>Carbon::now(), 
+                    ],
+                     [
+                        'name' => 'Full SleeveShirts',
+                        'status' => 'Active',
+                        'parent_id' => 1,
+                        'created_at' => Carbon::now(), 
+                        'updated_at' =>Carbon::now(), 
+                    ],
+                    [
+                        'name' => 'Half SleeveShirts',
+                        'status' => 'Active',
+                        'parent_id' => 1,
+                        'created_at' => Carbon::now(), 
+                        'updated_at' =>Carbon::now(), 
+                    ],
+                     [
+                        'name' => 'Formal Pants',
+                        'status' => 'Active',
+                        'parent_id' => 2,
+                        'created_at' => Carbon::now(), 
+                        'updated_at' =>Carbon::now(), 
+                    ],
+                     [
+                        'name' => 'Jogger Pants',
+                        'status' => 'Active',
+                        'parent_id' => 2,
+                        'created_at' => Carbon::now(), 
+                        'updated_at' =>Carbon::now(), 
+                    ],
+                ];
+               
+          
+        Category::insert($categories);
+       
     }
 }

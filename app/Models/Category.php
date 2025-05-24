@@ -9,5 +9,15 @@ class Category extends Model
 {
     protected $guarded = [];
 
-   
+   public function parent(){
+        return $this->hasMany(Category::class, 'parent_id');
+   }
+
+   public function childern(){
+        return $this->belongsTo(Category::class, 'parent_id');
+   }
+
+   public function products(){
+        return $this->hasMany(Product::class);
+   }
 }

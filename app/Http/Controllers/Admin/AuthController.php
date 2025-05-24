@@ -61,7 +61,7 @@ class AuthController extends Controller
         try{
             $user = User::where('email', $request->email)->first();
             if(!$user){
-                return redirect('products')->withErrors(['errors' => 'Credentials not matched!']);
+                return redirect()->route('login')->withErrors(['errors' => 'Credentials not matched!']);
             }
             return redirect()->route('products.index')->with(['success' => 'Login successfully!']);  
         }catch(Exception $e){
